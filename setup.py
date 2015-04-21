@@ -10,6 +10,8 @@ setup(
 
     install_requires = ["pillow", "pypdf2", "pyinsane"],
 
+    py_modules = ["sanesane"],
+
     entry_points = {"console_scripts":
                     ["sanesane = sanesane:main",
                     ],
