@@ -183,6 +183,8 @@ def argparse():
                         help="scanner resolution")
     parser.add_argument("--target-dpi", default=TARGET_DPI, type=int,
                         help="output resolution")
+    parser.add_argument("-r", "--rotate", default=0, type=int,
+                        help="rotate image counter-clockwise (degrees)")
     parser.add_argument("-R", "--show-resolutions", action="store_true",
                         help="show available resolutions for the current device")
     parser.add_argument("-v", "--view", action="store_true",
@@ -219,6 +221,8 @@ def cli_main(args):
         return
 
     images, resolution = scan_n_pages(dev, args.num_pages, args.duplex, args.dpi)
+    if args.rotate:
+        images = [im.rotate(args.rotate, expand=True) for im in images]
     images = [scale_image(im, resolution, args.target_dpi) for im in images]
     make_pdf(args.outfile, images, args.target_dpi)
 

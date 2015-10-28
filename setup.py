@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = "sanesane",
-    version="0.0.1",
+    version="0.0.2",
     author = "Christoph Rissner",
     author_email = "cri@flinkwork.at",
     description = "Sane sane interface to scan stuff.",
