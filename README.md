@@ -1,7 +1,7 @@
 Sane scanning to PDF
 ====================
 
-xsane requires way to much configuration, this script just scans whatever is
+xsane requires way too much configuration, this script just scans whatever is
 available in the automatic document feeder.
 
 Need duplex scans?
