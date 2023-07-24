@@ -45,7 +45,7 @@ def spawnDaemon(func):
     os._exit(os.EX_OK)
 
 def open_file(fn):
-    subprocess.Popen(["gvfs-open", fn])
+    subprocess.Popen(["gio", "open", fn])
 
 def decode(data):
     if isinstance(data, (list, tuple)):
@@ -93,8 +93,9 @@ def scan_n_pages(dev, num_pages=0, duplex=False, resolution=DPI):
         if source:
             dev.options["source"].value = source
         dev.options["color"] = "Color"
-        dev.options["adf-mode"].value = "Duplex" if duplex else "Simplex"
-        dev.options["scan-area"].value = "A4"
+        if "adf-mode" in dev.options:
+            dev.options["adf-mode"].value = "Duplex" if duplex else "Simplex"
+        #dev.options["scan-area"].value = "A4"
         dev.options["resolution"].value = resolution
         return dev.options["resolution"].value
 
@@ -144,7 +145,7 @@ def scan_n_pages(dev, num_pages=0, duplex=False, resolution=DPI):
 def scale_image(im, current_resolution, target_resolution=TARGET_DPI):
     f = target_resolution / current_resolution
     w, h = im.size
-    return im.resize((int(w * f), int(h * f)), PIL.Image.ANTIALIAS)
+    return im.resize((int(w * f), int(h * f)), PIL.Image.LANCZOS)
 
 def make_pdf(fn, images, resolution=DPI):
     if not images:
@@ -188,7 +189,7 @@ def argparse():
     parser.add_argument("-R", "--show-resolutions", action="store_true",
                         help="show available resolutions for the current device")
     parser.add_argument("-v", "--view", action="store_true",
-                        help="show document after scanning (using gvfs-open)")
+                        help="show document after scanning (using gio open)")
     parser.add_argument("-f", "--force", action="store_true",
                         help="force overwriting of existing files")
     parser.add_argument("outfile", metavar="OUTFILE", nargs="?", default="scan.pdf",
