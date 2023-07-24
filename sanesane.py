@@ -170,7 +170,7 @@ def argparse():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("-L", "--list-devices", action="store_true",
                         help="find availabe devices")
-    parser.add_argument("-n", "--num-pages", default=0, type=int,
+    parser.add_argument("-n", "--num-pages", default=1, type=int,
                         help="number of pages to scan (automatic if 0)")
     parser.add_argument("-D", "--device", default="#0",
                         help="device number (#<num>) or identification to use")
